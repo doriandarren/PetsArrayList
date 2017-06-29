@@ -8,6 +8,8 @@ import main.Felino;
 import main.Mascota;
 import main.Person;
 import main.Roedor;
+import util.Finder;
+import util.HelperMascota;
 import util.Input;
 
 public class UserInterface {
@@ -34,7 +36,7 @@ public class UserInterface {
 		for(int i=0; i<menuDescripcion.length;i++){
 			System.out.print(menuDescripcion[i]+" ");
 		}
-		System.out.println("\n\n[Mascota] = ave / canido / felino / Roedor");		
+		System.out.println("\n\nAyuda: [Mascota] = ave / canido / felino / Roedor");		
 		System.out.println("***********************************************************************************************");
 		String opc = Input.scanLineSecure("Escriba su opción: ", 1,false);		
 		return opc;
@@ -225,10 +227,50 @@ public class UserInterface {
 		return newPerson;
 	}
 	
+	/**
+	 * Ecuentra nombre dentro de ArrayList
+	 * @param list ArrayList
+	 * @param strSearch String
+	 * @return
+	 */
+	public static ArrayList<Mascota> searchNameOwner(ArrayList<Mascota> list, String strSearch) {			
+		Finder<Mascota> finder = new Finder<Mascota>();
+		ArrayList<Mascota> resultList = finder.find(list, strSearch, new Finder.ContainCheker<Mascota>() {
+			@Override
+			public boolean containCheker(Mascota mascota, Object patron) {
+				return mascota.getPropietario().getName().toLowerCase().equals(((String) patron).toLowerCase());
+			}
+		});
+		return resultList;
+	}
+	
+	/**
+	 * Encuentra Email dentro del ArrayList
+	 * @param list ArrayList
+	 * @param strSearch  String
+	 * @return
+	 */
+	public static ArrayList<Mascota> searchEmailOwner(ArrayList<Mascota> list, String strSearch) {			
+		Finder<Mascota> finder = new Finder<Mascota>();
+		ArrayList<Mascota> resultList = finder.find(list, strSearch, new Finder.ContainCheker<Mascota>() {
+			@Override
+			public boolean containCheker(Mascota mascota, Object patron) {
+				return mascota.getPropietario().getEmail().toLowerCase().equals(((String) patron).toLowerCase());
+			}
+		});
+		return resultList;
+	}
 
-	// Imprimir lista de registros
+	
+	
+	
+	
+	/**
+	 * Imprimir lista de registros
+	 * @param list
+	 */
 	public static void printListAll(ArrayList<Mascota> list) {
-		if (!list.equals(null)) {
+		if (!list.equals(null) || list.size()>0) {
 			// Controlar cuando no exista el Objeto Person
 			System.out.println("Listar Todos");
 			for (int i = 0; i < list.size(); i++) {
@@ -244,14 +286,18 @@ public class UserInterface {
 						+ "Email: " + list.get(i).getPropietario().getEmail() + " " 
 						+ "Dirección: "	+ list.get(i).getPropietario().getAddress());
 			}
+		}else{
+			System.out.println("No existe registros \n");
 		}
 	}
 	
 	
-	// Imprimir lista de registros
+	/**
+	 *  Imprimir lista de registros
+	 * @param mascota
+	 */
 	public static void printOne(Mascota mascota) {
 		if (!mascota.equals(null)) {
-			// Controlar cuando no exista el Objeto Person
 			System.out.println("Registro: ");			
 			System.out.println("\n+Mascota \n" 
 					+ "Nombre: " + mascota.getNombre() + " "
@@ -266,6 +312,5 @@ public class UserInterface {
 					+ "Dirección: "	+ mascota.getPropietario().getAddress());			
 		}
 	}
-	
 	
 }

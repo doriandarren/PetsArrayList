@@ -7,8 +7,12 @@ import main.Mascota;
 
 public class HelperMascota {
 
-	public static void sortArrayMascotaByLength(ArrayList<Mascota> list){
-		list.sort(new Comparator<Mascota>() {
+	public static ArrayList<Mascota> sortArrayMascotaByLength(ArrayList<Mascota> list){
+		//Copia
+		ArrayList<Mascota> listNew = new ArrayList<Mascota>(); 
+		listNew.addAll(list);
+		
+		listNew.sort(new Comparator<Mascota>() {
 			@Override
 			public int compare(Mascota o1, Mascota o2) {
 				int r=0;
@@ -20,15 +24,18 @@ public class HelperMascota {
 				return r;
 			}
 		});
+		return listNew;	
 	}
-	
-	
-	
-	public static ArrayList<Mascota> sortArrayMascotaByName(ArrayList<Mascota> list){		
-		ArrayList<Mascota> listNew = new ArrayList<Mascota>();
-		//Copia 
-		listNew.addAll(list);
 		
+	/**
+	 * Ordena por nombre de Mascota
+	 * @param list
+	 * @return
+	 */
+	public static ArrayList<Mascota> sortArrayMascotaByName(ArrayList<Mascota> list){		
+		//Copia
+		ArrayList<Mascota> listNew = new ArrayList<Mascota>(); 
+		listNew.addAll(list);		
 		listNew.sort(new Comparator<Mascota>() {
 			@Override
 			public int compare(Mascota o1, Mascota o2) {
@@ -38,14 +45,29 @@ public class HelperMascota {
 		return listNew;	
 	}
 	
-	public static void sortArrayMascotaByEmail(ArrayList<Mascota> list){
-		list.sort(new Comparator<Mascota>() {
-
+	
+	
+	
+	
+	
+	/**
+	 * Ordena por Email de Propietario
+	 * @param list
+	 * @return
+	 */
+	public static ArrayList<Mascota> sortArrayMascotaByEmail(ArrayList<Mascota> list){
+		//Copia
+		ArrayList<Mascota> listNew = new ArrayList<Mascota>(); 
+		listNew.addAll(list);
+		listNew.sort(new Comparator<Mascota>() {
 			@Override
 			public int compare(Mascota o1, Mascota o2) {
 				return o1.getPropietario().getEmail().toLowerCase()
 				.compareTo(o2.getPropietario().getEmail().toLowerCase());
 			}
 		});
+		return listNew;	
 	}
+	
+	
 }

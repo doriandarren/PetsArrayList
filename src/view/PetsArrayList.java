@@ -11,8 +11,16 @@ public class PetsArrayList {
 
 	private static final String A_FILE_NAME = "file.txt";
 	
-	public static void main(String[] args) {
+	//CONSDTANTES DE MENU
+	private final static String ADD = "add";
+	private static final String DEL = "del";
+	private static final String EDIT = "edit";
+	private static final String SEARCH = "search";
+	private static final String LIST = "list";
+	private static final String SALIR = "salir";
+	
 		
+	public static void main(String[] args) {		
 		
 		String strJson = FileHelper.readFile(A_FILE_NAME);
 		ArrayList<Mascota> list = new ArrayList<Mascota>();
@@ -22,7 +30,7 @@ public class PetsArrayList {
 		do{
 			opc = UserInterface.menuMain().split(" ");
 			
-			if(opc.length==2 && opc[0].equals("add") 
+			if(opc.length==2 && opc[0].equals(ADD) 
 					&& (opc[1].toLowerCase().equals("ave") 
 							|| opc[1].toLowerCase().equals("canido")
 							|| opc[1].toLowerCase().equals("felino") 
@@ -36,7 +44,7 @@ public class PetsArrayList {
 				String strJsonAdd = GsonHelper.convertArrayListToGson(list); 				
 				FileHelper.writeFile(strJsonAdd, A_FILE_NAME);	
 				
-			}else if(opc.length==1 && opc[0].equals("del")){
+			}else if(opc.length==1 && opc[0].equals(DEL)){
 				//del
 				UserInterface.clearScreen();
 				UserInterface.printListAll(list);
@@ -47,7 +55,7 @@ public class PetsArrayList {
 				String strJsonAdd = GsonHelper.convertArrayListToGson(list); 				
 				FileHelper.writeFile(strJsonAdd, A_FILE_NAME);	
 				
-			}else if(opc.length==1 && opc[0].equals("edit")){
+			}else if(opc.length==1 && opc[0].equals(EDIT)){
 				//edit
 				UserInterface.clearScreen();
 				UserInterface.printListAll(list);
@@ -62,16 +70,15 @@ public class PetsArrayList {
 				String strJsonAdd = GsonHelper.convertArrayListToGson(list); 				
 				FileHelper.writeFile(strJsonAdd, A_FILE_NAME);
 				
-			}else if(opc.length==1 && opc[0].equals("search")){
-				//search
-				
+			}else if(opc.length==1 && opc[0].equals(SEARCH)){
+				//search				
 				UserInterface.clearScreen();
-				String searchInput = Input.scannLine();
+				String strSearch = Input.scannLine();
+				ArrayList<Mascota> listFind = UserInterface.searchNameOwner(list,strSearch);
+				UserInterface.printListAll(listFind);
+												
 				
-								
-				
-				
-			}else if(opc.length==1 && opc[0].equals("list")){
+			}else if(opc.length==1 && opc[0].equals(LIST)){
 				//list
 				UserInterface.clearScreen();
 				UserInterface.printListAll(list);
@@ -80,7 +87,7 @@ public class PetsArrayList {
 				UserInterface.clearScreen();
 				System.out.println("Por favor! Ingrese un comando válido");
 			}		
-		}while(!opc.equals("salir"));
+		}while(!opc.equals(SALIR));
 		System.out.println("Hasta luego");
 		
 

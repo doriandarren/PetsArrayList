@@ -1,62 +1,56 @@
 package test;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import org.junit.Assert;
 import org.junit.Test;
 
-import main.Mascota;
-import main.Person;
-import main.Roedor;
-import util.HelperMascota;
+
 import main.Ave;
 import main.Canido;
 import main.Felino;
+import main.Mascota;
+import main.Person;
+import main.Roedor;
+import util.Finder;
 
+public class TestFinder {
 
-public class testHelperMascotas {
-
+	//@Test
+	public void testFinderByNameMascota(){		
+		ArrayList<Mascota> list = createArryayList();		
+		Finder<Mascota> finder = new Finder<Mascota>();		
+		
+		ArrayList<Mascota> resultList = 
+		finder.find(list, "Josep", new Finder.ContainCheker<Mascota>(){
+			@Override
+			public boolean containCheker(Mascota mascota, Object patron) {				
+				return mascota.getPropietario().getName().toLowerCase().equals(((String) patron).toLowerCase());
+			}
+			
+		});
+		Assert.assertEquals("Parrot", resultList.get(0).getNombre());		
+		showList(resultList);		
+	}
+	
 	
 	@Test
-	public void testSortByName(){	
-		ArrayList<Mascota> list = createArryayList();
-		ArrayList<Mascota> listSort = HelperMascota.sortArrayMascotaByName(list);
+	public void testFinderByEmailOwner(){		
+		ArrayList<Mascota> list = createArryayList();		
+		Finder<Mascota> finder = new Finder<Mascota>();		
 		
-		Assert.assertEquals( "Firulais" ,listSort.get(0).getNombre()); 
-		Assert.assertEquals( "Garffiel" ,listSort.get(1).getNombre()); 
-		Assert.assertEquals( "Miki" ,listSort.get(2).getNombre()); 
-		Assert.assertEquals( "Parrot" ,listSort.get(3).getNombre());
+		ArrayList<Mascota> resultList = 
+		finder.find(list, "josep@poo.com", new Finder.ContainCheker<Mascota>(){
+			@Override
+			public boolean containCheker(Mascota mascota, Object patron) {				
+				return mascota.getPropietario().getEmail().toLowerCase().equals(((String) patron).toLowerCase());
+			}
+			
+		});
+		Assert.assertEquals("Parrot", resultList.get(0).getNombre());		
+		showList(resultList);		
 	}
-	
-	//@Test
-	public void sortArrayMascotaByLength(){		
 		
-		ArrayList<Mascota> list = createArryayList();
-		ArrayList<Mascota> listSort = HelperMascota.sortArrayMascotaByLength(list);
-		
-		int size=list.size()-1;		
-		for(int i=0; i<size; i++)
-			Assert.assertTrue(listSort.get(i).getLargo()<listSort.get(i+1).getLargo());
-		
-		showList(listSort);
-				
-	}
-	
-	
-	//@Test
-	public void testSortByOwnerName(){
-		ArrayList<Mascota> list = createArryayList();
-		ArrayList<Mascota> listSort = HelperMascota.sortArrayMascotaByEmail(list);
-		
-		Assert.assertEquals("ajordi@poo.com", listSort.get(0).getPropietario().getEmail());
-		Assert.assertEquals( "bfredy@poo.com" ,listSort.get(1).getPropietario().getEmail()); 
-		Assert.assertEquals( "cmarc@poo.com" ,listSort.get(2).getPropietario().getEmail()); 
-		Assert.assertEquals( "josep@poo.com" ,listSort.get(3).getPropietario().getEmail());
-		
-	}
-	
-	
 	
 	private void showList(ArrayList<Mascota> list) {
 		System.out.println("Array List size "+ list.size());
@@ -68,6 +62,8 @@ public class testHelperMascotas {
 					+ " Propietario: " + list.get(i).getPropietario().getName());
 		}		
 	}
+	
+	
 	
 	private ArrayList<Mascota> createArryayList() {
 
