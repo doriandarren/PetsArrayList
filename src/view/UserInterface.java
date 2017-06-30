@@ -9,7 +9,6 @@ import main.Mascota;
 import main.Person;
 import main.Roedor;
 import util.Finder;
-import util.HelperMascota;
 import util.Input;
 
 public class UserInterface {
@@ -29,7 +28,7 @@ public class UserInterface {
 	 */
 	public static String menuMain(){
 		final String menuDescripcion[] = {"[add] [Mascota] Agregar","[del] Eliminar"
-				,"[edit] Editar","[find] Consultar","[list] Listado","[salir] Salir"};		
+				,"[edit] Editar","[search] Consultar","[list] Listado","[salir] Salir"};		
 		
 		System.out.println("\n***********************************************************************************************");
 		System.out.println("\t\t\t\t ---  Menú Principal  ---");
@@ -129,7 +128,7 @@ public class UserInterface {
 		float newAltura = 0;
 		float newLargo = 0;	
 		
-		System.out.println("Formulario para " + mascota.getClass().getName());
+		System.out.println("Formulario para " + mascota.getClass().getSimpleName());
 		
 		String nameOld = Input.scanLineSecure("Escriba el Nombre: ", 1, true);		
 		if(nameOld.isEmpty() || mascota.getNombre().toLowerCase().equals(nameOld.toLowerCase())){
@@ -226,6 +225,7 @@ public class UserInterface {
 		newPerson.setAddress(newAddress);
 		return newPerson;
 	}
+		
 	
 	/**
 	 * Ecuentra nombre dentro de ArrayList
@@ -238,7 +238,7 @@ public class UserInterface {
 		ArrayList<Mascota> resultList = finder.find(list, strSearch, new Finder.ContainCheker<Mascota>() {
 			@Override
 			public boolean containCheker(Mascota mascota, Object patron) {
-				return mascota.getPropietario().getName().toLowerCase().equals(((String) patron).toLowerCase());
+				return mascota.getPropietario().getName().toLowerCase().contains(((String) patron).toLowerCase());
 			}
 		});
 		return resultList;
@@ -255,15 +255,11 @@ public class UserInterface {
 		ArrayList<Mascota> resultList = finder.find(list, strSearch, new Finder.ContainCheker<Mascota>() {
 			@Override
 			public boolean containCheker(Mascota mascota, Object patron) {
-				return mascota.getPropietario().getEmail().toLowerCase().equals(((String) patron).toLowerCase());
+				return mascota.getPropietario().getEmail().toLowerCase().contains(((String) patron).toLowerCase());
 			}
 		});
 		return resultList;
 	}
-
-	
-	
-	
 	
 	/**
 	 * Imprimir lista de registros
@@ -274,7 +270,7 @@ public class UserInterface {
 			// Controlar cuando no exista el Objeto Person
 			System.out.println("Listar Todos");
 			for (int i = 0; i < list.size(); i++) {
-				System.out.println("# " + (i + 1) + "\n+Mascota \n" 
+				System.out.println("# " + (i + 1) + "\n+Mascota " + list.get(i).getClass().getSimpleName()+"\n"
 						+ "Nombre: " + list.get(i).getNombre() + " "
 						+ "Peso: " + list.get(i).getPeso() + " " 
 						+ "Altura: " + list.get(i).getAltura() + " "
@@ -299,7 +295,7 @@ public class UserInterface {
 	public static void printOne(Mascota mascota) {
 		if (!mascota.equals(null)) {
 			System.out.println("Registro: ");			
-			System.out.println("\n+Mascota \n" 
+			System.out.println("\n+Mascota "+ mascota.getClass().getSimpleName()+"\n"
 					+ "Nombre: " + mascota.getNombre() + " "
 					+ "Peso: " + mascota.getPeso() + " " 
 					+ "Altura: " + mascota.getAltura() + " "
@@ -310,7 +306,52 @@ public class UserInterface {
 					+ "Telefono: " + mascota.getPropietario().getPhone() + " " 
 					+ "Email: "	+ mascota.getPropietario().getEmail() + " " 
 					+ "Dirección: "	+ mascota.getPropietario().getAddress());			
+		}else{
+			System.out.println("No existe registros \n");
 		}
 	}
+	
+	
+	
+	/**
+	 * Imprimir lista de registros Mascota
+	 * @param list ArrayList
+	 */
+	public static void printMascota(ArrayList<Mascota> list) {
+		if (!list.equals(null) || list.size()>0) {
+			System.out.println("Listar Todos");
+			for (int i = 0; i < list.size(); i++) {
+				System.out.println("# " + (i + 1) + "\n+Mascota " + list.get(i).getClass().getSimpleName()+"\n"
+						+ "Nombre: " + list.get(i).getNombre() + " "
+						+ "Peso: " + list.get(i).getPeso() + " " 
+						+ "Altura: " + list.get(i).getAltura() + " "
+						+ "Largo: " + list.get(i).getLargo());
+			}
+		}else{
+			System.out.println("No existe registros \n");
+		}
+	}
+	
+	
+	/**
+	 * Imprimir lista de registros Person
+	 * @param list ArrayList
+	 */
+	public static void printPropietario(ArrayList<Mascota> list) {
+		if (!list.equals(null) || list.size()>0) {
+			System.out.println("Listar Todos");
+			for (int i = 0; i < list.size(); i++) {
+				System.out.println("# " + (i + 1) + "\n++Propietario " + list.get(i).getClass().getSimpleName()+"\n"
+						+ "Nombre: " + list.get(i).getPropietario().getName() + " " 
+						+ "Apellido: " + list.get(i).getPropietario().getSurname() + " " 
+						+ "Telefono: " + list.get(i).getPropietario().getPhone() + " " 
+						+ "Email: " + list.get(i).getPropietario().getEmail() + " " 
+						+ "Dirección: "	+ list.get(i).getPropietario().getAddress());
+			}
+		}else{
+			System.out.println("No existe registros \n");
+		}
+	}
+	
 	
 }

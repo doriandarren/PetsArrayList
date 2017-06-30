@@ -48,13 +48,15 @@ public class PetsArrayList {
 				//del
 				UserInterface.clearScreen();
 				UserInterface.printListAll(list);
-				int index = Integer.valueOf(Input.scanLineSecure("Ingrese el número(#): ", 4, false));
-				list.remove(index-1);
-				
-				//Actualizar GSON
-				String strJsonAdd = GsonHelper.convertArrayListToGson(list); 				
-				FileHelper.writeFile(strJsonAdd, A_FILE_NAME);	
-				
+				int index = Integer.valueOf(Input.scanLineSecure("Ingrese el número(#): ", 4, false));				
+				String strQues = Input.scanLineSecure("Seguro de Eliminar? s/n: ", 1, false);				
+				if(strQues.equals("s")){
+					list.remove(index-1);				
+					//Actualizar GSON
+					String strJsonAdd = GsonHelper.convertArrayListToGson(list); 				
+					FileHelper.writeFile(strJsonAdd, A_FILE_NAME);	
+				}
+								
 			}else if(opc.length==1 && opc[0].equals(EDIT)){
 				//edit
 				UserInterface.clearScreen();
@@ -73,10 +75,16 @@ public class PetsArrayList {
 			}else if(opc.length==1 && opc[0].equals(SEARCH)){
 				//search				
 				UserInterface.clearScreen();
-				String strSearch = Input.scannLine();
-				ArrayList<Mascota> listFind = UserInterface.searchNameOwner(list,strSearch);
-				UserInterface.printListAll(listFind);
-												
+				System.out.println("Búsqueda por Nombre o Email del Propietario");
+				System.out.print("Ingrese el valor a buscar: ");
+				String patron = Input.scannLine();								
+				if(patron.contains("@")){
+					ArrayList<Mascota> listFindEmail = UserInterface.searchEmailOwner(list,patron);
+					UserInterface.printListAll(listFindEmail);
+				}else{
+					ArrayList<Mascota> listFindName = UserInterface.searchNameOwner(list,patron);
+					UserInterface.printListAll(listFindName);
+				}				
 				
 			}else if(opc.length==1 && opc[0].equals(LIST)){
 				//list
@@ -87,10 +95,9 @@ public class PetsArrayList {
 				UserInterface.clearScreen();
 				System.out.println("Por favor! Ingrese un comando válido");
 			}		
-		}while(!opc.equals(SALIR));
+		}while(!opc[0].equals(SALIR));
 		System.out.println("Hasta luego");
 		
-
 	}
 
 }

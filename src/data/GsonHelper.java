@@ -113,5 +113,5 @@ public class GsonHelper {
 			return context.serialize(mascota, clazz);
 		}
 	}
-
+		
 }

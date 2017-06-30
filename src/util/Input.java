@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 public class Input {
 	
 	private static final String PATTERN_TEXT = "[A-Za-z\\s]+";	
-	private static final String PATTERN_NUMBER = "[0-9-\\,\\.]+";
+	private static final String PATTERN_NUMBER = "[0-9-\\.]+";
 	private static final String PATTERN_TEXT_NUMBER = "[A-Za-z0-9-\\,\\.\\s]+";	
 	private static final String PATTERN_EMAIL = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@"
 			+ "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
@@ -27,7 +27,7 @@ public class Input {
 	 * @return
 	 */
 	public static String scanLineSecure(String info, int optionFormat, boolean nulo){
-		String inputStr;		
+		String inputStr;
 		do{
 			System.out.print(info);
 			Scanner reader = new Scanner(System.in);
@@ -70,8 +70,8 @@ public class Input {
 					System.out.println(" Ingrese Telefono válido...");
 					inputStr="";
 				}
-			}			
-		}while(inputStr.isEmpty());	
+			}
+		}while(inputStr.isEmpty());			
 		return inputStr; 
 	}
 	
@@ -110,8 +110,7 @@ public class Input {
 		return matcher.matches();
 	}
 	
-	
-	
+		
 	
 	/*FUNCIONES INICIALES SE USAN POCO +++++++++++++++++++++++++++++*/
 	public static int scannInt(){
