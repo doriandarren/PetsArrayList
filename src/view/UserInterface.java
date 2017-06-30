@@ -40,8 +40,8 @@ public class UserInterface {
 		String opc = Input.scanLineSecure("Escriba su opción: ", 1,false);		
 		return opc;
 	}
-
-
+	
+	
 	/**
 	 * Crea un nuevo objeto Mascota
 	 * @param opc
@@ -238,7 +238,7 @@ public class UserInterface {
 		ArrayList<Mascota> resultList = finder.find(list, strSearch, new Finder.ContainCheker<Mascota>() {
 			@Override
 			public boolean containCheker(Mascota mascota, Object patron) {
-				return mascota.getPropietario().getName().toLowerCase().contains(((String) patron).toLowerCase());
+				return mascota.getPropietario().getFullName().toLowerCase().contains(((String) patron).toLowerCase());
 			}
 		});
 		return resultList;
@@ -269,6 +269,38 @@ public class UserInterface {
 		if (!list.equals(null) || list.size()>0) {
 			// Controlar cuando no exista el Objeto Person
 			System.out.println("Listar Todos");
+			System.out.println("#\t Tipo \t Nombre \t Peso \t Altura \t Largo");
+			for (int i = 0; i < list.size(); i++) {
+				System.out.println("---------------------------------------------------------------------");
+				System.out.print((i + 1) 
+						+"\t"+ list.get(i).getClass().getSimpleName()
+						+ "\t" + list.get(i).getNombre() 
+						+ "\t" + list.get(i).getPeso()
+						+ "\t" + list.get(i).getAltura()
+						+ "\t" + list.get(i).getLargo());
+			
+				System.out.print("\t PROPIETARIO: " + list.get(i).getPropietario().getName()
+						+ "\t" + list.get(i).getPropietario().getSurname()
+						+ "\t" + list.get(i).getPropietario().getPhone()
+						+ "\t" + list.get(i).getPropietario().getEmail()
+						+ "\t"	+ list.get(i).getPropietario().getAddress());
+				System.out.print("\n---------------------------------------------------------------------");
+			
+			}
+		}else{
+			System.out.println("No existe registros \n");
+		}
+	}
+	
+	
+	/*
+	 * Imprimir lista de registros
+	 * @param list
+	 *
+	public static void printListAll(ArrayList<Mascota> list) {
+		if (!list.equals(null) || list.size()>0) {
+			// Controlar cuando no exista el Objeto Person
+			System.out.println("Listar Todos");
 			for (int i = 0; i < list.size(); i++) {
 				System.out.println("# " + (i + 1) + "\n+Mascota " + list.get(i).getClass().getSimpleName()+"\n"
 						+ "Nombre: " + list.get(i).getNombre() + " "
@@ -286,6 +318,11 @@ public class UserInterface {
 			System.out.println("No existe registros \n");
 		}
 	}
+	
+	 
+	 * */
+	
+	
 	
 	
 	/**
@@ -310,22 +347,23 @@ public class UserInterface {
 			System.out.println("No existe registros \n");
 		}
 	}
-	
-	
+		
 	
 	/**
 	 * Imprimir lista de registros Mascota
 	 * @param list ArrayList
 	 */
-	public static void printMascota(ArrayList<Mascota> list) {
+	public static void printMascotas(ArrayList<Mascota> list) {
 		if (!list.equals(null) || list.size()>0) {
 			System.out.println("Listar Todos");
+			System.out.println("#\tTipo\tNombre\t\tPeso\tAltura\tLargo");
 			for (int i = 0; i < list.size(); i++) {
-				System.out.println("# " + (i + 1) + "\n+Mascota " + list.get(i).getClass().getSimpleName()+"\n"
-						+ "Nombre: " + list.get(i).getNombre() + " "
-						+ "Peso: " + list.get(i).getPeso() + " " 
-						+ "Altura: " + list.get(i).getAltura() + " "
-						+ "Largo: " + list.get(i).getLargo());
+				System.out.println((i + 1) 
+						+"\t"+ list.get(i).getClass().getSimpleName()
+						+ "\t" + list.get(i).getNombre() 
+						+ "\t\t" + list.get(i).getPeso()
+						+ "\t" + list.get(i).getAltura()
+						+ "\t" + list.get(i).getLargo());
 			}
 		}else{
 			System.out.println("No existe registros \n");
@@ -337,16 +375,17 @@ public class UserInterface {
 	 * Imprimir lista de registros Person
 	 * @param list ArrayList
 	 */
-	public static void printPropietario(ArrayList<Mascota> list) {
+	public static void printPropietarios(ArrayList<Mascota> list) {
 		if (!list.equals(null) || list.size()>0) {
 			System.out.println("Listar Todos");
+			System.out.println("#\tNombre\t\tApellido\tTeléfono\tEmail\tDirección");
 			for (int i = 0; i < list.size(); i++) {
-				System.out.println("# " + (i + 1) + "\n++Propietario " + list.get(i).getClass().getSimpleName()+"\n"
-						+ "Nombre: " + list.get(i).getPropietario().getName() + " " 
-						+ "Apellido: " + list.get(i).getPropietario().getSurname() + " " 
-						+ "Telefono: " + list.get(i).getPropietario().getPhone() + " " 
-						+ "Email: " + list.get(i).getPropietario().getEmail() + " " 
-						+ "Dirección: "	+ list.get(i).getPropietario().getAddress());
+				System.out.println((i + 1) 
+						+ "\t" + list.get(i).getPropietario().getName()
+						+ "\t" + list.get(i).getPropietario().getSurname()
+						+ "\t" + list.get(i).getPropietario().getPhone()
+						+ "\t" + list.get(i).getPropietario().getEmail()
+						+ "\t"	+ list.get(i).getPropietario().getAddress());
 			}
 		}else{
 			System.out.println("No existe registros \n");

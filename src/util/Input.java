@@ -1,4 +1,5 @@
 package util;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -135,4 +136,56 @@ public class Input {
 	}
 	
 	
+	
+	
+	
+	/**
+	 * Metodos para devolver unicamente un entero
+	 * @return
+	 */
+	public static int scanInt() {		
+		
+		// InputMismatchException
+		System.out.println("Entre un numero");
+
+		boolean again = false;
+		int var = 0;
+		do {
+			Scanner reader;
+			try {
+				reader = new Scanner(System.in);
+				var = reader.nextInt();
+				again = false;
+				reader.close();
+			} catch (InputMismatchException e) {
+				System.out.println("Por favor digite un numero");
+				again = true;
+			} 
+		} while(again);
+		return var;
+	}
+		
+	
+	public static float scanFloat() {	
+		
+		// InputMismatchException
+		System.out.println("Por favor digite un numero");
+
+		boolean again = false;
+		float var = 0;
+		do {
+			Scanner reader;
+			try {
+				reader = new Scanner(System.in);
+				var = reader.nextFloat();
+				again = false;
+				reader.close();
+			} catch (InputMismatchException e) {
+				System.out.println("Por favor digite un numero");
+				again = true;
+			} 
+		} while(again);
+		return var;
+	}
+			
 }

@@ -60,7 +60,7 @@ public class PetsArrayList {
 			}else if(opc.length==1 && opc[0].equals(EDIT)){
 				//edit
 				UserInterface.clearScreen();
-				UserInterface.printListAll(list);
+				UserInterface.printMascotas(list);
 				int index = Integer.valueOf(Input.scanLineSecure("Ingrese el número(#): ", 4, false));
 				index = index - 1;
 				UserInterface.clearScreen();
