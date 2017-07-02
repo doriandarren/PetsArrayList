@@ -13,6 +13,7 @@ public class PetsArrayList {
 	
 	//CONSDTANTES DE MENU
 	private final static String ADD = "add";
+	
 	private static final String DEL = "del";
 	private static final String EDIT = "edit";
 	private static final String SEARCH = "search";
